@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -30,17 +28,16 @@ public class CarController : MonoBehaviour
     public GameObject smokePrefab;
 
     // Inputs
-    public float acceleration;
-    public float steering;
-    public float brake;
+    public float acceleration, brake, steering;
 
     // Car properties
-    public float torque;
-    public float brakePower;
+    public float torque, brakePower;
+    private float speedClamp;
+    public int engineRunning;
 
     // Vectors and angles
-    private float slipAngle;
-    private float speed;
+    private float slipAngle, speed;
+    public float maxSpeed;
     public AnimationCurve steeringCurve;
 
     // Start is called before the first frame update
@@ -68,7 +65,8 @@ public class CarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        speed = rb.velocity.magnitude;
+        speed = WheelColliders.RR.rpm * WheelColliders.RR.radius * 2f * Mathf.PI / 10f;
+        speedClamp = Mathf.Lerp(speedClamp, speed, Time.deltaTime);
         CheckInput();
         ApplyTorque();
         ApplySteering();
@@ -82,6 +80,12 @@ public class CarController : MonoBehaviour
         acceleration = Input.GetAxis("Vertical");
         steering = Input.GetAxis("Horizontal");
         slipAngle = Vector3.Angle(transform.forward, rb.velocity - transform.forward);
+
+        if (Mathf.Abs(acceleration) > 0 && engineRunning == 0)
+        {
+            StartCoroutine(GetComponent<EngineAudio>().StartEngine());
+        }
+
         if (slipAngle < 120f)
         {
             if (acceleration < 0)
@@ -114,8 +118,19 @@ public class CarController : MonoBehaviour
 
     void ApplyTorque()
     {
-        WheelColliders.RR.motorTorque = torque * acceleration;
-        WheelColliders.LR.motorTorque = torque * acceleration;
+        if (engineRunning > 1)
+        {
+            if (Mathf.Abs(speed) < maxSpeed)
+            {
+                WheelColliders.RR.motorTorque = torque * acceleration;
+                WheelColliders.LR.motorTorque = torque * acceleration;
+            }
+            else
+            {
+                WheelColliders.RR.motorTorque = 0;
+                WheelColliders.LR.motorTorque = 0;
+            }
+        }
     }
 
 
@@ -183,5 +198,11 @@ public class CarController : MonoBehaviour
         wc.GetWorldPose(out position, out quat);
         mr.transform.position = position;
         mr.transform.rotation = quat;
+    }
+
+    public float SpeedRatio()
+    {
+        var acc = Mathf.Clamp(Mathf.Abs(acceleration), 0.5f, 1f);
+        return speedClamp * acc / maxSpeed;
     }
 }
