@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
     {
         Vector3 playerForward = (rb.velocity + player.transform.forward).normalized;
         transform.position = Vector3.Lerp(transform.position,
-            player.position + player.transform.TransformVector(offset) + playerForward * (-5f), speed * Time.deltaTime);
+            player.position + player.transform.TransformVector(offset) + playerForward * (-3f), speed * Time.deltaTime);
         transform.LookAt(player);
     }
 }

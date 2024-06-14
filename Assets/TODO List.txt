@@ -1,0 +1,19 @@
+High priority:
+    - Make tracks using the CartoonPoly track elements (at least 3 tracks)
+    - Add multiple cars and set them up
+    - Create main menu
+    - Create car, track selection and mode menu
+    - Create scene transitions
+    - Add UI elements such as Lap text, Lap time, Best time, Position in race
+    - Complete documentation as i go
+
+
+Medium priority:
+    - AI cars
+    - Fix camera following car
+    - Adjust car controller
+
+Low priority:
+    - Cutscenes
+    - Loading screen
+    - Animations
