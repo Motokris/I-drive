@@ -10,8 +10,8 @@ High priority:
 
 Medium priority:
     - AI cars
-    - Fix camera following car
-    - Adjust car controller
+    - Fix camera following car -- DONE
+    - Adjust car controller -- DONE
 
 Low priority:
     - Cutscenes

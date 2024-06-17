@@ -6,23 +6,25 @@ public class CameraController : MonoBehaviour
 {
 
     public Transform player;
-    public Vector3 offset;
     public float speed;
-
+    public Vector3 Offset;
     private Rigidbody rb;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rb = player.GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void LateUpdate()
+    void FixedUpdate()
+    {
+        follow();
+    }
+
+    private void follow()
     {
         Vector3 playerForward = (rb.velocity + player.transform.forward).normalized;
-        transform.position = Vector3.Lerp(transform.position,
-            player.position + player.transform.TransformVector(offset) + playerForward * (-3f), speed * Time.deltaTime);
-        transform.LookAt(player);
+        gameObject.transform.position = Vector3.Lerp(transform.position, player.position + player.transform.TransformVector(Offset) + playerForward * (-3f), 
+            Time.deltaTime * speed);
+        gameObject.transform.LookAt(player.transform.position);
     }
 }

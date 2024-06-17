@@ -14,11 +14,6 @@ public class WheelMeshes
     public MeshRenderer LF, LR, RF, RR;
 }
 
-[System.Serializable]
-public class WheelParticles
-{
-    public ParticleSystem LF, LR, RF, RR;
-}
 public enum GearState
 {
     Neutral,
@@ -33,7 +28,6 @@ public class CarController : MonoBehaviour
     private Rigidbody rb;
     public WheelColliders WheelColliders;
     public WheelMeshes WheelMeshes;
-    public WheelParticles WheelParticles;
     public GameObject smokePrefab;
 
     // Inputs
@@ -43,11 +37,13 @@ public class CarController : MonoBehaviour
     public float engineTorque, brakePower, RPM, redLine, idleRPM, diffRatio, increaseGearRPM, decreaseGearRPM;
     public float[] gearRatios;
     private float speedClamp, currentTorque, clutch, wheelRPM;
+    private bool handbrake = false;
     public int engineRunning, currentGear;
     private GearState gearState;
 
     // Vectors and angles
-    private float slipAngle, speed;
+    public float speed;
+    private float slipAngle;
     public float maxSpeed;
     public AnimationCurve steeringCurve, HPtoRPMCurve;
 
@@ -60,22 +56,6 @@ public class CarController : MonoBehaviour
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
-        CreateSmoke();
-    }
-
-    void CreateSmoke()
-    {
-        WheelParticles.RF = Instantiate(smokePrefab, WheelColliders.RF.transform.position - Vector3.up * WheelColliders.RF.radius,
-            Quaternion.identity, WheelColliders.RF.transform).GetComponent<ParticleSystem>();
-
-        WheelParticles.LF = Instantiate(smokePrefab, WheelColliders.LF.transform.position - Vector3.up * WheelColliders.LF.radius,
-            Quaternion.identity, WheelColliders.LF.transform).GetComponent<ParticleSystem>();
-
-        WheelParticles.RR = Instantiate(smokePrefab, WheelColliders.RR.transform.position - Vector3.up * WheelColliders.RR.radius,
-            Quaternion.identity, WheelColliders.RR.transform).GetComponent<ParticleSystem>();
-
-        WheelParticles.LR = Instantiate(smokePrefab, WheelColliders.LR.transform.position - Vector3.up * WheelColliders.LR.radius,
-            Quaternion.identity, WheelColliders.LR.transform).GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -86,21 +66,26 @@ public class CarController : MonoBehaviour
         gearText.text = (gearState == GearState.Neutral) ? "N" : (currentGear + 1).ToString();
         speed = WheelColliders.RR.rpm * WheelColliders.RR.radius * 2f * Mathf.PI / 10f;
         speedClamp = Mathf.Lerp(speedClamp, speed, Time.deltaTime);
-        CheckInput();
-        ApplyTorque();
-        ApplySteering();
+        ApplyTorque();  
         ApplyBrake();
         UpdateWheelsPos();
         CheckParticles();
     }
 
-    void CheckInput()
+    public void SetInput(float throttleInput, float steeringInput, float clutchInput, float handbrakeInput)
     {
-        acceleration = Input.GetAxis("Vertical");
-        steering = Input.GetAxis("Horizontal");
+        acceleration = throttleInput;
+        steering = steeringInput;
         slipAngle = Vector3.Angle(transform.forward, rb.velocity - transform.forward);
 
         float movingDirection = Vector3.Dot(transform.forward, rb.velocity);
+
+        if (Mathf.Abs(acceleration) > 0 && engineRunning == 0)
+        {
+            StartCoroutine(GetComponent<EngineAudio>().StartEngine());
+            gearState = GearState.Running;
+        }
+        ApplySteering();
 
         if (gearState != GearState.Change)
         {
@@ -112,18 +97,12 @@ public class CarController : MonoBehaviour
             }
             else
             {
-                clutch = Input.GetKey(KeyCode.LeftShift) ? 0 : Mathf.Lerp(clutch, 1, Time.deltaTime);
+                clutch = Mathf.Abs(1-clutchInput);
             }
         }
         else
         {
             clutch = 0;
-        }
-
-        if (Mathf.Abs(acceleration) > 0 && engineRunning == 0)
-        {
-            StartCoroutine(GetComponent<EngineAudio>().StartEngine());
-            gearState = GearState.Running;
         }
 
         if (movingDirection < -0.5f && acceleration > 0)
@@ -138,6 +117,7 @@ public class CarController : MonoBehaviour
         {
             brake = 0;
         }
+        handbrake = (handbrakeInput>0.5f);
     }
 
     void ApplySteering()
@@ -149,11 +129,25 @@ public class CarController : MonoBehaviour
 
     void ApplyBrake()
     {
-        WheelColliders.RF.brakeTorque = brake * brakePower * 0.6f;
-        WheelColliders.LF.brakeTorque = brake * brakePower * 0.6f;
+        WheelColliders.RF.brakeTorque = brake * brakePower * 0.7f;
+        WheelColliders.LF.brakeTorque = brake * brakePower * 0.7f;
 
         WheelColliders.RR.brakeTorque = brake * brakePower * 0.3f;
         WheelColliders.LR.brakeTorque = brake * brakePower * 0.3f;
+
+        if (handbrake)
+        {
+            clutch = 0;
+            WheelColliders.RR.brakeTorque = brakePower * 1000f;
+            WheelColliders.LR.brakeTorque = brakePower * 1000f;
+        }
+    }
+
+    void ApplyTorque()
+    {
+        currentTorque = CalculateTorque();
+        WheelColliders.LR.motorTorque = currentTorque * acceleration;
+        WheelColliders.RR.motorTorque = currentTorque * acceleration;
     }
 
     float CalculateTorque()
@@ -190,13 +184,6 @@ public class CarController : MonoBehaviour
         return torque;
     }
 
-    void ApplyTorque()
-    {
-        currentTorque = CalculateTorque();
-        WheelColliders.LR.motorTorque = currentTorque * acceleration;
-        WheelColliders.RR.motorTorque = currentTorque * acceleration;
-    }
-
 
     void UpdateWheelsPos()
     {
@@ -214,44 +201,8 @@ public class CarController : MonoBehaviour
         WheelColliders.LF.GetGroundHit(out wheelHits[1]);
         WheelColliders.RR.GetGroundHit(out wheelHits[2]);
         WheelColliders.LR.GetGroundHit(out wheelHits[3]);
-
-        float slipAllowance = 0.3f;
-        if (Mathf.Abs(wheelHits[0].sidewaysSlip) + Mathf.Abs(wheelHits[0].forwardSlip) > slipAllowance)
-        {
-            WheelParticles.RF.Play();
-        }
-        else
-        {
-            WheelParticles.RF.Stop();
-        }
-
-        if (Mathf.Abs(wheelHits[1].sidewaysSlip) + Mathf.Abs(wheelHits[1].forwardSlip) > slipAllowance)
-        {
-            WheelParticles.LF.Play();
-        }
-        else
-        {
-            WheelParticles.LF.Stop();
-        }
-
-        if (Mathf.Abs(wheelHits[2].sidewaysSlip) + Mathf.Abs(wheelHits[2].forwardSlip) > slipAllowance)
-        {
-            WheelParticles.RR.Play();
-        }
-        else
-        {
-            WheelParticles.RR.Stop();
-        }
-
-        if (Mathf.Abs(wheelHits[3].sidewaysSlip) + Mathf.Abs(wheelHits[3].forwardSlip) > slipAllowance)
-        {
-            WheelParticles.LR.Play();
-        }
-        else
-        {
-            WheelParticles.LR.Stop();
-        }
     }
+        
 
     // Updates textures to collider rotation and position
     void UpdateSingleWheel(WheelCollider wc, MeshRenderer mr)
