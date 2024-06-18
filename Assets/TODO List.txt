@@ -1,6 +1,6 @@
 High priority:
     - Make tracks using the CartoonPoly track elements (at least 3 tracks)
-    - Add multiple cars and set them up
+    - Add multiple cars and set them up -- DONE
     - Create main menu -- DONE
     - Create car, track selection and mode menu
     - Create scene transitions -- DONE
