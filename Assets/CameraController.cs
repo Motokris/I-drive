@@ -8,11 +8,13 @@ public class CameraController : MonoBehaviour
     public Transform player;
     public float speed;
     public Vector3 Offset;
+    private Vector3 cameraOffset;
     private Rigidbody rb;
 
     void Awake()
     {
         rb = player.GetComponent<Rigidbody>();
+        cameraOffset.x = 4;
     }
 
     void FixedUpdate()

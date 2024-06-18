@@ -3,6 +3,7 @@ High priority:
     - Add multiple cars and set them up -- DONE
     - Create main menu -- DONE
     - Create car, track selection and mode menu
+    - Dinamically load assets based on selection
     - Create scene transitions -- DONE
     - Add UI elements such as Lap text, Lap time, Best time, Position in race
     - Complete documentation as i go
@@ -10,6 +11,8 @@ High priority:
 
 Medium priority:
     - AI cars
+    - Play with friction elements
+    - Allow setup creation per car
     - Fix camera following car -- DONE
     - Adjust car controller -- DONE
 
