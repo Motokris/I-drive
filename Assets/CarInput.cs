@@ -145,7 +145,7 @@ public partial class @CarInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""negative"",
                     ""id"": ""ffd80ec0-136d-4621-9898-25b68ea1e2d7"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""path"": ""<DualShockGamepad>/leftTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -156,7 +156,7 @@ public partial class @CarInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""positive"",
                     ""id"": ""b7b5d4b3-596b-43ea-9157-4badec3bf6e6"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""path"": ""<DualShockGamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -244,7 +244,7 @@ public partial class @CarInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""negative"",
                     ""id"": ""3ca79fdc-2234-4668-8d0b-32d85f4f9216"",
-                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""path"": ""<DualShockGamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -255,7 +255,7 @@ public partial class @CarInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""positive"",
                     ""id"": ""2b953490-b33d-4faa-a1ca-4b403051de5a"",
-                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""path"": ""<DualShockGamepad>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -277,7 +277,7 @@ public partial class @CarInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""d5098e14-259b-44bb-b1d2-eeb3770bc4a8"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""path"": ""<DualShockGamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -299,7 +299,7 @@ public partial class @CarInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""66ed7ca3-c2a7-4c0d-990a-bc9bc6aca9e1"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<DualShockGamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

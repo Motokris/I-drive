@@ -28,7 +28,6 @@ public class CarController : MonoBehaviour
     private Rigidbody rb;
     public WheelColliders WheelColliders;
     public WheelMeshes WheelMeshes;
-    public GameObject smokePrefab;
 
     // Inputs
     public float acceleration, brake, steering;
@@ -161,11 +160,17 @@ public class CarController : MonoBehaviour
         {
             if (RPM > increaseGearRPM)
             {
-                StartCoroutine(ChangeGear(1));
+                if (currentGear != 5)
+                {
+                    StartCoroutine(ChangeGear(1));
+                }
             }
             else if (RPM < decreaseGearRPM)
             {
-                StartCoroutine(ChangeGear(-1));
+                if (currentGear != 0)
+                {
+                    StartCoroutine(ChangeGear(-1));
+                }
             }
         }
         if (engineRunning > 0)

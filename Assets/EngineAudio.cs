@@ -30,43 +30,52 @@ public class EngineAudio : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float speedSign = 0;
-        if (carController)
-        {
-            speedSign = Mathf.Sign(carController.SpeedRatio());
-            speedRatio = Mathf.Abs(carController.SpeedRatio());
-        }
-
-        if (speedRatio > limiterEngage)
-        {
-            revLimiter = (Mathf.Sin(Time.time * limiterFreq) + 1f) * limiterSound * (speedRatio - limiterEngage);
-        }
-
-
-        if (isRunning)
-        {
-            if (speedRatio == 0)
-            {
-                idleSound.volume = Mathf.Lerp(0.1f, idleMaxVol, speedRatio);
-            }
-            if (speedSign > 0)
-            {
-                reverseSound.volume = 0;
-                runningSound.volume = Mathf.Lerp(0.3f, runningMaxVol, speedRatio);
-                runningSound.pitch = Mathf.Lerp(0.3f, runningMaxPitch, speedRatio);
-            }
-            else
-            {
-                runningSound.volume = 0;
-                reverseSound.volume = Mathf.Lerp(0f, reverseMaxVol, speedRatio);
-                reverseSound.pitch = Mathf.Lerp(0.2f, reverseMaxPitch, speedRatio);
-            }
-        }
-        else
+        if (PauseController.GamePaused == true)
         {
             idleSound.volume = 0;
             runningSound.volume = 0;
             reverseSound.volume = 0;
+        }
+        else
+        {
+            float speedSign = 0;
+            if (carController)
+            {
+                speedSign = Mathf.Sign(carController.SpeedRatio());
+                speedRatio = Mathf.Abs(carController.SpeedRatio());
+            }
+
+            if (speedRatio > limiterEngage)
+            {
+                revLimiter = (Mathf.Sin(Time.time * limiterFreq) + 1f) * limiterSound * (speedRatio - limiterEngage);
+            }
+
+
+            if (isRunning)
+            {
+                if (speedRatio == 0)
+                {
+                    idleSound.volume = Mathf.Lerp(0.1f, idleMaxVol, speedRatio);
+                }
+                if (speedSign > 0)
+                {
+                    reverseSound.volume = 0;
+                    runningSound.volume = Mathf.Lerp(0.3f, runningMaxVol, speedRatio);
+                    runningSound.pitch = Mathf.Lerp(0.3f, runningMaxPitch, speedRatio);
+                }
+                else
+                {
+                    runningSound.volume = 0;
+                    reverseSound.volume = Mathf.Lerp(0f, reverseMaxVol, speedRatio);
+                    reverseSound.pitch = Mathf.Lerp(0.2f, reverseMaxPitch, speedRatio);
+                }
+            }
+            else
+            {
+                idleSound.volume = 0;
+                runningSound.volume = 0;
+                reverseSound.volume = 0;
+            }
         }
     }
     public IEnumerator StartEngine()

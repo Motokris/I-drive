@@ -1,9 +1,9 @@
 High priority:
-    - Make tracks using the CartoonPoly track elements (at least 3 tracks)
+    - Make tracks using the CartoonPoly track elements (at least 3 tracks) -- 1 track
     - Add multiple cars and set them up -- DONE
     - Create main menu -- DONE
-    - Create car, track selection and mode menu
-    - Dinamically load assets based on selection
+    - Create car, track selection and mode menu -- ALMOST
+    - Dinamically load assets based on selection -- bookmarked link
     - Create scene transitions -- DONE
     - Add UI elements such as Lap text, Lap time, Best time, Position in race
     - Complete documentation as i go
