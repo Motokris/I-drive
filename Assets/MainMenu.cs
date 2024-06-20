@@ -3,10 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-
-    public void FreeRoam()
+    public void SelectionScreen()
     {
-        SceneManager.LoadScene("Scenes/Map1");
+        SceneManager.LoadScene("Scenes/Selection");
     }
 
     public void QuitGame()
