@@ -5,7 +5,7 @@ public class SelectionMenu : MonoBehaviour
 {
     private GameObject[] carList, mapList, modeList;
     public int carIndex = 0, mapIndex = 0, modeIndex = 0;
-    private string[] maps = { "Scenes/Free_roam", "Scenes/Map1" };
+    private string[] maps = { "Scenes/Map1" };
     private string[] modes = { "Free roam", "Time Trial" };
 
     // Start is called before the first frame update

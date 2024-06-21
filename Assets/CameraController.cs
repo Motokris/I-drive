@@ -2,9 +2,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField]
     public Transform player;
-
     private Vector3 Offset;
     private Rigidbody rb;
 

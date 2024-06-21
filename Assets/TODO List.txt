@@ -5,7 +5,7 @@ High priority:
     - Create car, track selection and mode menu -- DONE
     - Dinamically load assets based on selection -- DONE
     - Create scene transitions -- DONE
-    - Add UI elements such as Lap text, Lap time, Best time, Position in race and countdown to start
+    - Add UI elements such as Lap text, Lap time, Best time, Position in race and countdown to start -- DONE
     - Complete documentation as i go
 
 
@@ -14,8 +14,3 @@ Medium priority:
     - Play with friction elements or change steering
     - Fix camera following car -- DONE
     - Adjust car controller -- DONE
-
-Low priority:
-    - Cutscenes
-    - Loading screen
-    - Animations

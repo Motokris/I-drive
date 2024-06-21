@@ -5,7 +5,7 @@ public class MapManager : MonoBehaviour
     public GameObject[] carPrefabs;
     public Transform carSpawn;
     private new CameraController camera;
-    public string[] cars = { "Chevy", "Ford", "Ferrari", "Bugatti" };
+    private string[] cars = { "Chevy", "Ford", "Ferrari", "Bugatti" };
 
     void Awake()
     {

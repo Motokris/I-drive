@@ -3,11 +3,10 @@ using UnityEngine.SceneManagement;
 
 public class PauseController : MonoBehaviour
 {
-
     public static bool GamePaused = false;
-    public GameObject pauseUI, speedometerUI;
+    [SerializeField] GameObject pauseUI;
 
-    // Update is called once per frame
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -25,7 +24,6 @@ public class PauseController : MonoBehaviour
 
     public void Resume()
     {
-        speedometerUI.SetActive(true);
         pauseUI.SetActive(false);
         Time.timeScale = 1f;
         GamePaused = false;
@@ -33,7 +31,6 @@ public class PauseController : MonoBehaviour
 
     private void Pause()
     {
-        speedometerUI.SetActive(false);
         pauseUI.SetActive(true);
         Time.timeScale = 0f;
         GamePaused = true;
