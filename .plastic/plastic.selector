@@ -1,0 +1,4 @@
+repository "I drive@Motokris@cloud"
+  path "/"
+    br "/main"
+    co "/main"

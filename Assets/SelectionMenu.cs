@@ -3,21 +3,18 @@ using UnityEngine.SceneManagement;
 
 public class SelectionMenu : MonoBehaviour
 {
-    private GameObject[] carList, mapList, modeList;
-    public int carIndex = 0, mapIndex = 0, modeIndex = 0;
-    private string[] maps = { "Scenes/Map1" };
-    private string[] modes = { "Free roam", "Time Trial" };
+    private GameObject[] carList, mapList;
+    public int carIndex = 0, mapIndex = 0;
+    private string[] maps = { "Scenes/Map1", "Scenes/Map2" };
 
     // Start is called before the first frame update
     void Start()
     {
         carIndex = PlayerPrefs.GetInt("CarSelected");
         mapIndex = PlayerPrefs.GetInt("MapSelected");
-        modeIndex = PlayerPrefs.GetInt("ModeSelected");
 
         carList = new GameObject[GameObject.Find("CarList").transform.childCount];
         mapList = new GameObject[GameObject.Find("MapList").transform.childCount];
-        modeList = new GameObject[GameObject.Find("ModeList").transform.childCount];
 
         for (int i = 0; i < GameObject.Find("CarList").transform.childCount; i++)
         {
@@ -27,11 +24,6 @@ public class SelectionMenu : MonoBehaviour
         for (int i = 0; i < GameObject.Find("MapList").transform.childCount; i++)
         {
             mapList[i] = GameObject.Find("MapList").transform.GetChild(i).gameObject;
-        }
-
-        for (int i = 0; i < GameObject.Find("ModeList").transform.childCount; i++)
-        {
-            modeList[i] = GameObject.Find("ModeList").transform.GetChild(i).gameObject;
         }
 
         foreach (GameObject go in carList)
@@ -44,11 +36,6 @@ public class SelectionMenu : MonoBehaviour
             go.SetActive(false);
         }
 
-        foreach (GameObject go in modeList)
-        {
-            go.SetActive(false);
-        }
-
         if (carList[carIndex])
         {
             carList[carIndex].SetActive(true);
@@ -57,11 +44,6 @@ public class SelectionMenu : MonoBehaviour
         if (mapList[mapIndex])
         {
             mapList[mapIndex].SetActive(true);
-        }
-
-        if (modeList[modeIndex])
-        {
-            modeList[modeIndex].SetActive(true);
         }
     }
 
@@ -109,33 +91,10 @@ public class SelectionMenu : MonoBehaviour
         mapList[mapIndex].SetActive(true);
     }
 
-    public void ToggleModeLeft()
-    {
-        modeList[modeIndex].SetActive(false);
-
-        modeIndex--;
-        if (modeIndex < 0)
-            modeIndex = modeList.Length - 1;
-
-        modeList[modeIndex].SetActive(true);
-    }
-
-    public void ToggleModeRight()
-    {
-        modeList[modeIndex].SetActive(false);
-
-        modeIndex++;
-        if (modeIndex == modeList.Length)
-            modeIndex = 0;
-
-        modeList[modeIndex].SetActive(true);
-    }
-
     public void Confirm()
     {
         PlayerPrefs.SetInt("CarSelected", carIndex);
         PlayerPrefs.SetInt("MapSelected", mapIndex);
-        PlayerPrefs.SetInt("ModeSelected", modeIndex);
 
         SceneManager.LoadScene(maps[mapIndex]);
     }

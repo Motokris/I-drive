@@ -11,6 +11,7 @@ public class EngineAudio : MonoBehaviour
         reverseMaxVol, reverseMaxPitch,
         idleMaxVol,
         limiterSound = 1f, limiterFreq = 3f, limiterEngage = 0.8f, revLimiter;
+    private float volumeSliderValue;
 
     // Car properties
     public bool isRunning = false;
@@ -22,6 +23,7 @@ public class EngineAudio : MonoBehaviour
     void Start()
     {
         carController = GetComponent<CarController>();
+        volumeSliderValue = PlayerPrefs.GetFloat("VolumeValue");
         idleSound.volume = 0;
         runningSound.volume = 0;
         reverseSound.volume = 0;
@@ -55,18 +57,18 @@ public class EngineAudio : MonoBehaviour
             {
                 if (speedRatio == 0)
                 {
-                    idleSound.volume = Mathf.Lerp(0.1f, idleMaxVol, speedRatio);
+                    idleSound.volume = Mathf.Lerp(0.1f, idleMaxVol, speedRatio) * volumeSliderValue;
                 }
                 if (speedSign > 0)
                 {
                     reverseSound.volume = 0;
-                    runningSound.volume = Mathf.Lerp(0.3f, runningMaxVol, speedRatio);
+                    runningSound.volume = Mathf.Lerp(0.3f, runningMaxVol, speedRatio) * volumeSliderValue;
                     runningSound.pitch = Mathf.Lerp(0.3f, runningMaxPitch, speedRatio);
                 }
                 else
                 {
                     runningSound.volume = 0;
-                    reverseSound.volume = Mathf.Lerp(0f, reverseMaxVol, speedRatio);
+                    reverseSound.volume = Mathf.Lerp(0f, reverseMaxVol, speedRatio) * volumeSliderValue;
                     reverseSound.pitch = Mathf.Lerp(0.2f, reverseMaxPitch, speedRatio);
                 }
             }

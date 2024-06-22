@@ -115,7 +115,7 @@ Transform:
   m_GameObject: {fileID: 814561609517167771}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0.8749483, y: 0.34599754, z: -1.4865842}
+  m_LocalPosition: {x: -0.8749483, y: 0.364, z: -1.4865842}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -152,13 +152,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 2
+    m_Stiffness: 1
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2
+    m_Stiffness: 0.8
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -285,7 +285,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a2db1893ca8980444881aba147d51bba, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 5b02bff4753969648953b8b16e123a1a, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.1
   m_Pitch: 1
@@ -535,7 +535,7 @@ Transform:
   m_GameObject: {fileID: 2816106026823738723}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -10.417727, y: 0.011515021, z: 1.7729826}
+  m_LocalPosition: {x: 334.796, y: 0.011516213, z: -146.33397}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -629,18 +629,18 @@ MonoBehaviour:
   brake: 0
   steering: 0
   engineTorque: 500
-  brakePower: 10000
+  brakePower: 13000
   RPM: 0
   redLine: 6500
-  idleRPM: 1000
+  idleRPM: 800
   diffRatio: 2
-  increaseGearRPM: 5000
-  decreaseGearRPM: 1800
+  increaseGearRPM: 5300
+  decreaseGearRPM: 1600
   gearRatios:
-  - 3
-  - 2.5
   - 2
+  - 1.75
   - 1.5
+  - 1.25
   - 1
   - 0.8
   engineRunning: 0
@@ -651,8 +651,17 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 4.8491535
-      value: 99.58863
+      time: -99.61963
+      value: 29.538094
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: -0.55033684
+      value: 99.91422
       inSlope: 0.11165626
       outSlope: 0.11165626
       tangentMode: 0
@@ -660,8 +669,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.26627308
     - serializedVersion: 3
-      time: 162.19463
-      value: 19.339813
+      time: 245.04675
+      value: 20.818617
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -939,7 +948,7 @@ Transform:
   m_GameObject: {fileID: 4849410208503300799}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0.87494797, y: 0.3273929, z: 1.146837}
+  m_LocalPosition: {x: -0.87494797, y: 0.345, z: 1.146837}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -976,13 +985,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 2
+    m_Stiffness: 1.3
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2
+    m_Stiffness: 1
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1421,7 +1430,7 @@ Transform:
   m_GameObject: {fileID: 6668599941821500301}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0.8749483, y: 0.34599754, z: -1.4865842}
+  m_LocalPosition: {x: 0.8749483, y: 0.364, z: -1.4865842}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1458,13 +1467,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 2
+    m_Stiffness: 1
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2
+    m_Stiffness: 0.8
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1721,7 +1730,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -13, y: 25}
+  m_AnchoredPosition: {x: -24, y: 29}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8085710440642360778
@@ -1811,7 +1820,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f54ca6c4519c27b46b1c3bd10809cb4a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 860dd75b7a5befb4f8045afc83397892, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.1
   m_Pitch: 1
@@ -1924,7 +1933,7 @@ Transform:
   m_GameObject: {fileID: 8815983593252960514}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0.87494797, y: 0.3273929, z: 1.146837}
+  m_LocalPosition: {x: 0.87494797, y: 0.345, z: 1.146837}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1961,13 +1970,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 2
+    m_Stiffness: 1.3
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2
+    m_Stiffness: 1
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2019,7 +2028,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: cd855abca0fe4644589d18a89fea3899, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 5b02bff4753969648953b8b16e123a1a, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.1
   m_Pitch: 1

@@ -5,20 +5,10 @@ using UnityEngine;
 public class Countdown : MonoBehaviour
 {
     public GameObject countdown, lapTimer;
-    private string[] cars = { "Chevy", "Ford", "Ferrari", "Bugatti" };
-    private GameObject[] objects;
 
     private void Start()
     {
-        lapTimer.SetActive(true);
-        if (PlayerPrefs.GetInt("ModeSelected") == 1)
-        {
-            StartCoroutine(CountStart());
-        }
-        else
-        {
-            lapTimer.transform.parent.gameObject.SetActive(false);
-        }
+        StartCoroutine(CountStart());
     }
 
     IEnumerator CountStart()

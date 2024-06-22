@@ -63,9 +63,9 @@ public class CarController : MonoBehaviour
         rpmNeedle.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(minNeedleRotation, maxNeedleRotation, RPM / (redLine * 1.1f)));
         rpmText.text = "" + (int)RPM;
         gearText.text = (gearState == GearState.Neutral) ? "N" : (currentGear + 1).ToString();
-        speed = WheelColliders.RR.rpm * WheelColliders.RR.radius * 2f * Mathf.PI / 10f;
+        speed = WheelColliders.RR.rpm * WheelColliders.RR.radius * 2f * Mathf.PI * 60f;
         speedClamp = Mathf.Lerp(speedClamp, speed, Time.deltaTime);
-        ApplyTorque();  
+        ApplyTorque();
         ApplyBrake();
         UpdateWheelsPos();
         CheckParticles();
@@ -96,7 +96,7 @@ public class CarController : MonoBehaviour
             }
             else
             {
-                clutch = Mathf.Abs(1-clutchInput);
+                clutch = Mathf.Abs(1 - clutchInput);
             }
         }
         else
@@ -116,7 +116,7 @@ public class CarController : MonoBehaviour
         {
             brake = 0;
         }
-        handbrake = (handbrakeInput>0.5f);
+        handbrake = (handbrakeInput > 0.5f);
     }
 
     void ApplySteering()
@@ -182,8 +182,8 @@ public class CarController : MonoBehaviour
             else
             {
                 wheelRPM = Mathf.Abs((WheelColliders.RR.rpm + WheelColliders.LR.rpm)) / 2 * gearRatios[currentGear] * diffRatio;
-                RPM = Mathf.Lerp(RPM, Mathf.Max(idleRPM - 100, wheelRPM), Time.deltaTime * 3f);
-                torque = HPtoRPMCurve.Evaluate(RPM / redLine) * engineTorque / RPM * gearRatios[currentGear] * diffRatio * 5252f * clutch;
+                RPM = Mathf.Lerp(RPM, Mathf.Max(idleRPM - 100, wheelRPM), Time.deltaTime);
+                torque = HPtoRPMCurve.Evaluate(RPM / redLine) * engineTorque / RPM * gearRatios[currentGear] * 5252f * diffRatio * clutch;
             }
         }
         return torque;
@@ -207,7 +207,7 @@ public class CarController : MonoBehaviour
         WheelColliders.RR.GetGroundHit(out wheelHits[2]);
         WheelColliders.LR.GetGroundHit(out wheelHits[3]);
     }
-        
+
 
     // Updates textures to collider rotation and position
     void UpdateSingleWheel(WheelCollider wc, MeshRenderer mr)

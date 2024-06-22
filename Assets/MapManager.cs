@@ -4,16 +4,16 @@ public class MapManager : MonoBehaviour
 {
     public GameObject[] carPrefabs;
     public Transform carSpawn;
-    private new CameraController camera;
     private string[] cars = { "Chevy", "Ford", "Ferrari", "Bugatti" };
 
     void Awake()
     {
         GameObject carPrefab = null;
+        CameraController camera;
 
         foreach (GameObject go in carPrefabs)
         {
-            if (go.name == cars[PlayerPrefs.GetInt("CarSelected")]) 
+            if (go.name == cars[PlayerPrefs.GetInt("CarSelected")])
             {
                 carPrefab = go;
             }

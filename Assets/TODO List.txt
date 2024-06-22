@@ -11,6 +11,6 @@ High priority:
 
 Medium priority:
     - AI cars
-    - Play with friction elements or change steering
+    - Play with friction elements and add downforce or change steering
     - Fix camera following car -- DONE
     - Adjust car controller -- DONE

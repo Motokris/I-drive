@@ -449,7 +449,7 @@ Transform:
   m_GameObject: {fileID: 3641085857548545964}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 349.48404, y: -0.0000009536743, z: -330.75964}
+  m_LocalPosition: {x: -15.610514, y: -0.000007748604, z: 7.2192945}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -543,8 +543,8 @@ MonoBehaviour:
   acceleration: 0
   brake: 0
   steering: 0
-  engineTorque: 500
-  brakePower: 80000
+  engineTorque: 300
+  brakePower: 6000
   RPM: 0
   redLine: 6500
   idleRPM: 800
@@ -566,22 +566,31 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 2.1802044
-      value: 63.54617
-      inSlope: -0.1443543
-      outSlope: -0.1443543
+      time: -99.61963
+      value: 29.538094
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.5183852
+      outWeight: 0
     - serializedVersion: 3
-      time: 100.28369
-      value: 19.365164
-      inSlope: -1.1427038
-      outSlope: -1.1427038
+      time: 1.0014057
+      value: 70.5003
+      inSlope: 0.11165626
+      outSlope: 0.11165626
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.18169327
+      inWeight: 0
+      outWeight: 0.26627308
+    - serializedVersion: 3
+      time: 245.04675
+      value: 20.818617
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -1275,13 +1284,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 2
+    m_Stiffness: 1.3
   m_SidewaysFriction:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 2
+    m_Stiffness: 1.3
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1566,13 +1575,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 2
+    m_Stiffness: 1.3
   m_SidewaysFriction:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 2
+    m_Stiffness: 1.3
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
