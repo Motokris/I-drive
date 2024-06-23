@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LapTimeManager : MonoBehaviour
 {
-    public static int min, sec;
+    public static float min, sec;
     public static float milisec;
 
     public GameObject minBox, secBox, milisecBox;

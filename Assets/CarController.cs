@@ -33,9 +33,9 @@ public class CarController : MonoBehaviour
     public float acceleration, brake, steering;
 
     // Car properties
-    public float engineTorque, brakePower, RPM, redLine, idleRPM, diffRatio, increaseGearRPM, decreaseGearRPM;
+    public float engineTorque, brakePower, RPM, redLine, idleRPM, diffRatio, increaseGearRPM, decreaseGearRPM, clutch;
     public float[] gearRatios;
-    private float speedClamp, currentTorque, clutch, wheelRPM;
+    private float speedClamp, currentTorque, wheelRPM;
     private bool handbrake = false;
     public int engineRunning, currentGear;
     private GearState gearState;
@@ -122,6 +122,11 @@ public class CarController : MonoBehaviour
     void ApplySteering()
     {
         float angle = steering * steeringCurve.Evaluate(speed);
+        if (slipAngle < 120f)
+        {
+            angle += Vector3.SignedAngle(transform.forward, rb.velocity + transform.forward, Vector3.up);
+        }
+        angle = Mathf.Clamp(angle, -90f, 90f);
         WheelColliders.RF.steerAngle = angle;
         WheelColliders.LF.steerAngle = angle;
     }
