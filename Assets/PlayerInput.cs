@@ -9,6 +9,10 @@ public class PlayerInput : MonoBehaviour
     public CarInput input;
     private CarController carController;
 
+
+    /// <summary>
+    /// Awake is being called when an enabled script instance is loaded, before the application starts
+    /// </summary>
     void Awake()
     {
         input = new CarInput();
@@ -44,6 +48,12 @@ public class PlayerInput : MonoBehaviour
         input.Disable();
     }
 
+    /// <summary>
+    /// Smooths the inputs
+    /// </summary>
+    /// <param name="input">Player input</param>
+    /// <param name="output">Output after smoothing</param>
+    /// <returns></returns>
     private float DampenInput(float input, float output)
     {
         return Mathf.Lerp(output, input, Time.deltaTime * dampenSpeed);

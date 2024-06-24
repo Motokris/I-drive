@@ -29,7 +29,9 @@ public class EngineAudio : MonoBehaviour
         reverseSound.volume = 0;
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Based on the player entity's movement, determine which sound to play at what pitch and volume
+    /// </summary>
     void Update()
     {
         if (PauseController.GamePaused == true)

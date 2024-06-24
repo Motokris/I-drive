@@ -9,6 +9,10 @@ public class LapComplete : MonoBehaviour
     public GameObject bestMin, bestSec, bestMilisec, lapTimeBox, lapCount, endGameScreen;
     private int lapCounter = 0;
 
+
+    /// <summary>
+    /// Once the lapCompleteTrigg is triggered, checks if it should replace the best time
+    /// </summary>
     private void OnTriggerEnter()
     {
         if (lapCounter == 0)
@@ -23,8 +27,8 @@ public class LapComplete : MonoBehaviour
         LapTimeManager.milisec = 0;
         LapTimeManager.sec = 0;
         LapTimeManager.min = 0;
-        
-        
+
+
         lapCounter++;
         /*
         if (lapCounter == 3)
@@ -47,6 +51,9 @@ public class LapComplete : MonoBehaviour
         yield return new WaitForSeconds(6);
     }
 
+    /// <summary>
+    /// Checks if the new time is better than the best time
+    /// </summary>
     void CheckTime()
     {
         float min, sec;
@@ -77,7 +84,7 @@ public class LapComplete : MonoBehaviour
 
     void UpdateBestTime()
     {
-        
+
         if (LapTimeManager.sec <= 9)
         {
             bestSec.GetComponent<TextMeshProUGUI>().text = "0" + LapTimeManager.sec.ToString("F0") + ".";

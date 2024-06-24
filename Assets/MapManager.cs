@@ -6,6 +6,10 @@ public class MapManager : MonoBehaviour
     public Transform carSpawn;
     private string[] cars = { "Chevy", "Ford", "Ferrari", "Bugatti" };
 
+
+    /// <summary>
+    /// Awake is being called when an enabled script instance is loaded, before the application starts
+    /// </summary>
     void Awake()
     {
         GameObject carPrefab = null;

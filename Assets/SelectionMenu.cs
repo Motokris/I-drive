@@ -7,7 +7,9 @@ public class SelectionMenu : MonoBehaviour
     public int carIndex = 0, mapIndex = 0;
     private string[] maps = { "Scenes/Map1", "Scenes/Map2" };
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Start is called before the Update function is called. Here it remembers the player's selection in a PlayerPrefs in the user's platform registry and loads the selected choices.
+    /// </summary>
     void Start()
     {
         carIndex = PlayerPrefs.GetInt("CarSelected");

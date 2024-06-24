@@ -60,10 +60,10 @@ public class CarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rpmNeedle.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(minNeedleRotation, maxNeedleRotation, RPM / (redLine * 1.1f)));
+        rpmNeedle.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(minNeedleRotation, maxNeedleRotation, RPM / (redLine * 1.1f))); // Determine how much to rotate needle between minRotaion and maxRotation and RPM
         rpmText.text = "" + (int)RPM;
         gearText.text = (gearState == GearState.Neutral) ? "N" : (currentGear + 1).ToString();
-        speed = WheelColliders.RR.rpm * WheelColliders.RR.radius * 2f * Mathf.PI * 60f;
+        speed = WheelColliders.RR.rpm * WheelColliders.RR.radius * 2f * Mathf.PI * 60f / 1000f; // Formula for speed: circumference of wheel (2*radius*pi) * rpm of wheel * 60 / 1000 (to transform into km/h)
         speedClamp = Mathf.Lerp(speedClamp, speed, Time.deltaTime);
         ApplyTorque();
         ApplyBrake();
@@ -119,6 +119,10 @@ public class CarController : MonoBehaviour
         handbrake = (handbrakeInput > 0.5f);
     }
 
+
+    /// <summary>
+    /// Based on the value of the car's speed, take the steering angle from the curve and apply it in the [-90, 90] degree space
+    /// </summary>
     void ApplySteering()
     {
         float angle = steering * steeringCurve.Evaluate(speed);
@@ -154,6 +158,11 @@ public class CarController : MonoBehaviour
         WheelColliders.RR.motorTorque = currentTorque * acceleration;
     }
 
+
+    /// <summary>
+    /// Using the formula HP = Torque * RPM / 5252 and based on gearRatios and differential ratio, determine the generated torque on the wheels
+    /// </summary>
+    /// <returns>Torque value in N*m</returns>
     float CalculateTorque()
     {
         float torque = 0;
@@ -214,7 +223,11 @@ public class CarController : MonoBehaviour
     }
 
 
-    // Updates textures to collider rotation and position
+    /// <summary>
+    /// Updates position of the texture on a wheel based on the collider's movement
+    /// </summary>
+    /// <param name="wc">Collider of the wheel</param>
+    /// <param name="mr">Mesh texture of the wheel</param>
     void UpdateSingleWheel(WheelCollider wc, MeshRenderer mr)
     {
         Quaternion quat;
@@ -231,6 +244,12 @@ public class CarController : MonoBehaviour
         return RPM * acc / redLine;
     }
 
+
+    /// <summary>
+    /// Based on the gearChange state, check RPM and decide whether to go up or down the gears
+    /// </summary>
+    /// <param name="gearChange"></param>
+    /// <returns></returns>
     IEnumerator ChangeGear(int gearChange)
     {
         gearState = GearState.CheckChange;
