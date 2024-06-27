@@ -35,7 +35,7 @@ public class CarController : MonoBehaviour
     // Car properties
     public float engineTorque, brakePower, RPM, redLine, idleRPM, diffRatio, increaseGearRPM, decreaseGearRPM, clutch;
     public float[] gearRatios;
-    private float speedClamp, currentTorque, wheelRPM;
+    private float speedClamp, currentTorque, wheelRPM, maxSteer = 70f;
     private bool handbrake = false;
     public int engineRunning, currentGear;
     private GearState gearState;
@@ -60,10 +60,12 @@ public class CarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rpmNeedle.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(minNeedleRotation, maxNeedleRotation, RPM / (redLine * 1.1f))); // Determine how much to rotate needle between minRotaion and maxRotation and RPM
+        // Determine how much to rotate needle between minRotaion and maxRotation and RPM
+        rpmNeedle.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(minNeedleRotation, maxNeedleRotation, RPM / (redLine * 1.1f)));
         rpmText.text = "" + (int)RPM;
         gearText.text = (gearState == GearState.Neutral) ? "N" : (currentGear + 1).ToString();
-        speed = WheelColliders.RR.rpm * WheelColliders.RR.radius * 2f * Mathf.PI * 60f / 1000f; // Formula for speed: circumference of wheel (2*radius*pi) * rpm of wheel * 60 / 1000 (to transform into km/h)
+        // Formula for speed: circumference of wheel (2*radius*pi) * rpm of wheel * 60 / 1000 (to transform into km/h)
+        speed = WheelColliders.RR.rpm * WheelColliders.RR.radius * 2f * Mathf.PI * 60f / 1000f;
         speedClamp = Mathf.Lerp(speedClamp, speed, Time.deltaTime);
         ApplyTorque();
         ApplyBrake();
@@ -74,7 +76,6 @@ public class CarController : MonoBehaviour
     public void SetInput(float throttleInput, float steeringInput, float clutchInput, float handbrakeInput)
     {
         acceleration = throttleInput;
-        steering = steeringInput;
         slipAngle = Vector3.Angle(transform.forward, rb.velocity - transform.forward);
 
         float movingDirection = Vector3.Dot(transform.forward, rb.velocity);
@@ -84,7 +85,7 @@ public class CarController : MonoBehaviour
             StartCoroutine(GetComponent<EngineAudio>().StartEngine());
             gearState = GearState.Running;
         }
-        ApplySteering();
+        ApplySteering(steeringInput);
 
         if (gearState != GearState.Change)
         {
@@ -121,27 +122,28 @@ public class CarController : MonoBehaviour
 
 
     /// <summary>
-    /// Based on the value of the car's speed, take the steering angle from the curve and apply it in the [-90, 90] degree space
+    /// Calculate the steering angle based on the input and the value on the steering curve for the speed input
     /// </summary>
-    void ApplySteering()
+    /// <param name="steering">Steering input</param>
+    void ApplySteering(float steering)
     {
         float angle = steering * steeringCurve.Evaluate(speed);
         if (slipAngle < 120f)
         {
             angle += Vector3.SignedAngle(transform.forward, rb.velocity + transform.forward, Vector3.up);
         }
-        angle = Mathf.Clamp(angle, -90f, 90f);
+        angle = Mathf.Clamp(angle, -maxSteer, maxSteer);
         WheelColliders.RF.steerAngle = angle;
         WheelColliders.LF.steerAngle = angle;
     }
 
     void ApplyBrake()
     {
-        WheelColliders.RF.brakeTorque = brake * brakePower * 0.7f;
-        WheelColliders.LF.brakeTorque = brake * brakePower * 0.7f;
+        WheelColliders.RF.brakeTorque = brake * brakePower;
+        WheelColliders.LF.brakeTorque = brake * brakePower;
 
-        WheelColliders.RR.brakeTorque = brake * brakePower * 0.3f;
-        WheelColliders.LR.brakeTorque = brake * brakePower * 0.3f;
+        WheelColliders.RR.brakeTorque = brake * brakePower * 0.5f;
+        WheelColliders.LR.brakeTorque = brake * brakePower * 0.5f;
 
         if (handbrake)
         {
@@ -195,9 +197,9 @@ public class CarController : MonoBehaviour
             }
             else
             {
-                wheelRPM = Mathf.Abs((WheelColliders.RR.rpm + WheelColliders.LR.rpm)) / 2 * gearRatios[currentGear] * diffRatio;
-                RPM = Mathf.Lerp(RPM, Mathf.Max(idleRPM - 100, wheelRPM), Time.deltaTime);
-                torque = HPtoRPMCurve.Evaluate(RPM / redLine) * engineTorque / RPM * gearRatios[currentGear] * 5252f * diffRatio * clutch;
+                wheelRPM = Mathf.Abs((WheelColliders.RR.rpm + WheelColliders.LR.rpm) / 2f) * gearRatios[currentGear] * diffRatio;
+                RPM = Mathf.Lerp(RPM, Mathf.Max(idleRPM - 100, wheelRPM), Time.deltaTime * 3f);
+                torque = (HPtoRPMCurve.Evaluate(RPM / redLine) * engineTorque / RPM) * gearRatios[currentGear] * 5252f * diffRatio * clutch;
             }
         }
         return torque;

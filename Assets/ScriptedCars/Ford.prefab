@@ -757,6 +757,7 @@ MonoBehaviour:
   diffRatio: 2
   increaseGearRPM: 5400
   decreaseGearRPM: 2500
+  clutch: 0
   gearRatios:
   - 3
   - 2.5
@@ -773,7 +774,7 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: -99.61963
-      value: 29.538094
+      value: 19.118752
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -782,13 +783,13 @@ MonoBehaviour:
       outWeight: 0
     - serializedVersion: 3
       time: 1.0014057
-      value: 70.5003
-      inSlope: 0.11165626
-      outSlope: 0.11165626
+      value: 61.043556
+      inSlope: -0.0039265705
+      outSlope: -0.0039265705
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.26627308
+      outWeight: 0.06464905
     - serializedVersion: 3
       time: 245.04675
       value: 20.818617
