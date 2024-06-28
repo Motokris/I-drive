@@ -18,7 +18,7 @@ public class Countdown : MonoBehaviour
                 car = go;
             }
         }
-        StartCoroutine(CountStart());
+        //StartCoroutine(CountStart());
     }
 
     IEnumerator CountStart()
