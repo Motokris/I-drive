@@ -4,7 +4,6 @@ using UnityEngine.EventSystems;
 public class OptionsMenu : MonoBehaviour
 {
     private GameObject[] gameObjectsList;
-    private EventSystem eventSystem;
 
     private void Start()
     {

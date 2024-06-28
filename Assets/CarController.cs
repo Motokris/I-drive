@@ -70,7 +70,7 @@ public class CarController : MonoBehaviour
         ApplyTorque();
         ApplyBrake();
         UpdateWheelsPos();
-        CheckParticles();
+        //CheckParticles();
     }
 
     public void SetInput(float throttleInput, float steeringInput, float clutchInput, float handbrakeInput)
@@ -214,6 +214,7 @@ public class CarController : MonoBehaviour
         UpdateSingleWheel(WheelColliders.RR, WheelMeshes.RR);
     }
 
+    /*
     void CheckParticles()
     {
         WheelHit[] wheelHits = new WheelHit[4];
@@ -223,6 +224,7 @@ public class CarController : MonoBehaviour
         WheelColliders.RR.GetGroundHit(out wheelHits[2]);
         WheelColliders.LR.GetGroundHit(out wheelHits[3]);
     }
+    */
 
 
     /// <summary>

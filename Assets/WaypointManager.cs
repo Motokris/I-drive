@@ -14,9 +14,4 @@ public class WaypointManager : MonoBehaviour
         }
         waypoints.Remove(waypoints[0]);
     }
-
-    void Update()
-    {
-
-    }
 }
