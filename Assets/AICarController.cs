@@ -33,7 +33,7 @@ public class AICarController : MonoBehaviour
         }
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         currentAngle = Vector3.SignedAngle(forward, waypoints[currentWaypoint].position - transform.position, Vector3.up);
-        acceleration = Mathf.Clamp01(1f - Mathf.Abs(controller.speed * 0.01f * currentAngle) / maxAngle);
+        acceleration = Mathf.Clamp01(1f - Mathf.Abs(controller.speed * 0.02f * currentAngle) / maxAngle);
         if (isBraking)
         {
             acceleration = -acceleration * (Mathf.Clamp01(controller.speed / maxSpeed) * 2 - 1f);

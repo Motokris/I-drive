@@ -35,7 +35,7 @@ public class CarController : MonoBehaviour
     // Car properties
     public float engineTorque, brakePower, RPM, redLine, idleRPM, diffRatio, increaseGearRPM, decreaseGearRPM, clutch;
     public float[] gearRatios;
-    private float speedClamp, currentTorque, wheelRPM, maxSteer = 70f;
+    private float speedClamp, currentTorque, wheelRPM, maxSteer = 50f;
     private bool handbrake = false;
     public int engineRunning, currentGear;
     private GearState gearState;
@@ -139,11 +139,11 @@ public class CarController : MonoBehaviour
 
     void ApplyBrake()
     {
-        WheelColliders.RF.brakeTorque = brake * brakePower;
-        WheelColliders.LF.brakeTorque = brake * brakePower;
+        WheelColliders.RF.brakeTorque = brake * brakePower * 0.5f;
+        WheelColliders.LF.brakeTorque = brake * brakePower * 0.5f;
 
-        WheelColliders.RR.brakeTorque = brake * brakePower * 0.5f;
-        WheelColliders.LR.brakeTorque = brake * brakePower * 0.5f;
+        WheelColliders.RR.brakeTorque = brake * brakePower;
+        WheelColliders.LR.brakeTorque = brake * brakePower;
 
         if (handbrake)
         {

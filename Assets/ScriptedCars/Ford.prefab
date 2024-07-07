@@ -750,21 +750,27 @@ MonoBehaviour:
   brake: 0
   steering: 0
   engineTorque: 425
-  brakePower: 18000
+  brakePower: 25000
   RPM: 0
   redLine: 6650
   idleRPM: 800
   diffRatio: 2
-  increaseGearRPM: 5400
-  decreaseGearRPM: 2500
+  increaseGearRPM: 5500
+  decreaseGearRPM: 1500
   clutch: 0
   gearRatios:
   - 3
-  - 2.5
   - 2
-  - 1.5
+  - 1.4
   - 1
   - 0.8
+  - 0.5
+  speedthreshold:
+  - 50
+  - 120
+  - 180
+  - 230
+  - 260
   engineRunning: 0
   currentGear: 0
   speed: 0
@@ -774,7 +780,7 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: -99.61963
-      value: 19.118752
+      value: 29.538094
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -782,17 +788,17 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 1.0014057
-      value: 61.043556
-      inSlope: -0.0039265705
-      outSlope: -0.0039265705
+      time: -0.55033684
+      value: 99.91422
+      inSlope: 0.11165626
+      outSlope: 0.11165626
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.06464905
+      outWeight: 0.26627308
     - serializedVersion: 3
-      time: 245.04675
-      value: 20.818617
+      time: 162.19463
+      value: 19.339813
       inSlope: 0
       outSlope: 0
       tangentMode: 0

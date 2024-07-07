@@ -425,13 +425,14 @@ MonoBehaviour:
   brake: 0
   steering: 0
   engineTorque: 450
-  brakePower: 6000
+  brakePower: 30000
   RPM: 0
   redLine: 6500
   idleRPM: 900
   diffRatio: 2
   increaseGearRPM: 5300
   decreaseGearRPM: 2400
+  clutch: 0
   gearRatios:
   - 3
   - 2.5
@@ -439,6 +440,12 @@ MonoBehaviour:
   - 1.5
   - 1
   - 0.8
+  speedthreshold:
+  - 70
+  - 130
+  - 170
+  - 200
+  - 250
   engineRunning: 0
   currentGear: 0
   speed: 0
